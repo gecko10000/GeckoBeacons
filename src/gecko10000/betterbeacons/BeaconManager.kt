@@ -35,14 +35,18 @@ class BeaconManager : MyKoinComponent {
     private val json: Json by inject()
     private val beaconKey = NamespacedKey(plugin, "bb")
 
-    private val loadedBeacons: MutableMap<Chunk, Map<Block, CustomBeacon>> = mutableMapOf()
+    private val loadedBeacons: MutableMap<Block, CustomBeacon> = mutableMapOf()
 
     init {
         Bukkit.getWorlds()
             .flatMap { it.loadedChunks.toList() }
             .forEach(this::load)
         EventListener(ChunkLoadEvent::class.java) { e -> load(e.chunk) }
-        EventListener(ChunkUnloadEvent::class.java) { e -> loadedBeacons.remove(e.chunk) }
+        EventListener(ChunkUnloadEvent::class.java) { e ->
+            loadedBeacons.keys
+                .filter { it.chunk == e.chunk }
+                .forEach { loadedBeacons.remove(it) }
+        }
         EventListener(BlockPlaceEvent::class.java) { e ->
             val state = e.block.state
             if (state is Beacon)
@@ -66,7 +70,7 @@ class BeaconManager : MyKoinComponent {
         Task.syncRepeating(
             { ->
                 for (map in loadedBeacons.values) {
-                    map.forEach { (_, b) -> doEffects(b) }
+                    doEffects(map)
                 }
             },
             0L, plugin.config.effectApplicationIntervalSeconds * 20L
@@ -103,18 +107,14 @@ class BeaconManager : MyKoinComponent {
         return beacon
     }
 
-    private fun addBeacons(chunk: Chunk, beacons: Set<CustomBeacon>) {
-        loadedBeacons.compute(chunk) { _, map ->
-            map.orEmpty().plus(beacons.associateBy { it.block })
-        }
+    private fun addBeacons(beacons: Set<CustomBeacon>) = beacons.forEach(this::addBeacon)
+
+    private fun addBeacon(beacon: CustomBeacon) {
+        loadedBeacons[beacon.block] = beacon
     }
 
-    private fun addBeacon(beacon: CustomBeacon) = addBeacons(beacon.block.chunk, setOf(beacon))
-
     private fun removeBeacon(beacon: Block) {
-        val chunk = beacon.chunk
-        val beacons = loadedBeacons[chunk] ?: return
-        loadedBeacons[chunk] = beacons.minus(beacon)
+        loadedBeacons.remove(beacon)
     }
 
     private fun load(chunk: Chunk) {
@@ -126,7 +126,7 @@ class BeaconManager : MyKoinComponent {
         }
         val beacons = beaconStates
             .map(this::load)
-        addBeacons(chunk, beacons.toSet())
+        addBeacons(beacons.toSet())
     }
 
     private fun load(beacon: Beacon): CustomBeacon {
@@ -144,7 +144,7 @@ class BeaconManager : MyKoinComponent {
     }
 
     private fun get(block: Block): CustomBeacon? {
-        return loadedBeacons[block.chunk]?.get(block)
+        return loadedBeacons[block]
     }
 
     private fun update(customBeacon: CustomBeacon, newInfo: BeaconInfo): CustomBeacon {

@@ -1,5 +1,6 @@
 package gecko10000.betterbeacons.guis
 
+import com.google.common.collect.HashMultimap
 import gecko10000.betterbeacons.BeaconManager
 import gecko10000.betterbeacons.BetterBeacons
 import gecko10000.betterbeacons.config.BeaconEffect
@@ -53,6 +54,18 @@ class BeaconGUI(
         val item = ItemStack.of(material)
         item.editMeta {
             it.displayName(displayName)
+            val cost = plugin.config.levelCosts[i]
+            if (cost != null) {
+                it.lore(
+                    listOf(
+                        MM.deserialize(
+                            "<aqua>Cost: <amount> <item>",
+                            Placeholder.unparsed("amount", cost.amount.toString()),
+                            Placeholder.component("item", Component.translatable(cost.translationKey()))
+                        ).withDefaults()
+                    )
+                )
+            }
         }
         return item.asQuantity(i)
     }
@@ -70,12 +83,16 @@ class BeaconGUI(
         ).withDefaults()
         val item = ItemStack.of(plugin.config.effectMaterialMappings[effect.effect] ?: Material.BARRIER)
         item.setData(DataComponentTypes.MAX_STACK_SIZE, effect.level)
+        //val f = ItemFlag.item.unsetData(DataComponentTypes.HIDE_ADDITIONAL_TOOLTIP)
         item.amount = effect.level
         item.editMeta {
             it.displayName(name)
             if (isSelected) {
                 it.setEnchantmentGlintOverride(true)
             }
+            // it.addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+            // https://discord.com/channels/289587909051416579/555462289851940864/1323653780717305888
+            it.attributeModifiers = HashMultimap.create()
         }
         return item
     }

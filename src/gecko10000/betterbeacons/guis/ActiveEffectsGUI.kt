@@ -1,5 +1,6 @@
 package gecko10000.betterbeacons.guis
 
+import com.google.common.collect.HashMultimap
 import gecko10000.betterbeacons.BeaconManager
 import gecko10000.betterbeacons.BetterBeacons
 import gecko10000.betterbeacons.config.BeaconEffect
@@ -44,6 +45,7 @@ class ActiveEffectsGUI(player: Player, private var beacon: CustomBeacon) : GUI(p
                     parseMM("<red>No refunds.")
                 )
             )
+            it.attributeModifiers = HashMultimap.create()
         }
         return ItemButton.create(item) { _ ->
             beacon = beaconManager.disableEffect(beacon, effect)

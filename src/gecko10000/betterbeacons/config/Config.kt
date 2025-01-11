@@ -1,4 +1,8 @@
-@file:UseSerializers(MMComponentSerializer::class, PotionEffectTypeSerializer::class, ItemStackSerializer::class)
+@file:UseSerializers(
+    MMComponentSerializer::class,
+    PotionEffectTypeSerializer::class,
+    ItemStackSerializer::class
+)
 
 package gecko10000.betterbeacons.config
 

@@ -1,0 +1,7 @@
+bb,bbeacons {
+    reload {
+        help Reload the configs
+        hook reload
+        permission betterbeacons.reload
+    }
+}

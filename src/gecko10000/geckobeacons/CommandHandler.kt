@@ -1,6 +1,6 @@
-package gecko10000.betterbeacons
+package gecko10000.geckobeacons
 
-import gecko10000.betterbeacons.di.MyKoinComponent
+import gecko10000.geckobeacons.di.MyKoinComponent
 import gecko10000.geckolib.extensions.parseMM
 import org.bukkit.command.CommandSender
 import org.koin.core.component.inject
@@ -9,7 +9,7 @@ import redempt.redlib.commandmanager.CommandParser
 
 class CommandHandler : MyKoinComponent {
 
-    private val plugin: BetterBeacons by inject()
+    private val plugin: GeckoBeacons by inject()
 
     init {
         CommandParser(plugin.getResource("command.rdcml")).parse().register("mm", this)

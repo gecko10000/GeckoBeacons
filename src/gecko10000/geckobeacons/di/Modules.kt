@@ -1,12 +1,12 @@
-package gecko10000.betterbeacons.di
+package gecko10000.geckobeacons.di
 
-import gecko10000.betterbeacons.BeaconManager
-import gecko10000.betterbeacons.BetterBeacons
-import gecko10000.betterbeacons.CommandHandler
+import gecko10000.geckobeacons.BeaconManager
+import gecko10000.geckobeacons.CommandHandler
+import gecko10000.geckobeacons.GeckoBeacons
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
-fun pluginModules(plugin: BetterBeacons) = module {
+fun pluginModules(plugin: GeckoBeacons) = module {
     single { plugin }
     single(createdAtStart = true) { BeaconManager() }
     single(createdAtStart = true) { CommandHandler() }

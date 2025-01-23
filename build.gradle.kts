@@ -16,11 +16,11 @@ sourceSets {
     }
 }
 
-group = "gecko10000.betterbeacons"
+group = "gecko10000.geckobeacons"
 version = "0.1"
 
 bukkit {
-    name = "BetterBeacons"
+    name = "GeckoBeacons"
     main = "$group.$name"
     apiVersion = "1.13"
     depend = listOf("GeckoLib")

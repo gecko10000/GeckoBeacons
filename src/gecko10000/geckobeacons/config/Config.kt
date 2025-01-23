@@ -4,7 +4,7 @@
     ItemStackSerializer::class
 )
 
-package gecko10000.betterbeacons.config
+package gecko10000.geckobeacons.config
 
 import gecko10000.geckolib.config.serializers.ItemStackSerializer
 import gecko10000.geckolib.config.serializers.MMComponentSerializer

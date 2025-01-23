@@ -1,4 +1,4 @@
-package gecko10000.betterbeacons.di
+package gecko10000.geckobeacons.di
 
 import org.koin.core.Koin
 import org.koin.core.component.KoinComponent

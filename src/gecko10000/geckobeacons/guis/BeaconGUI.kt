@@ -1,11 +1,11 @@
-package gecko10000.betterbeacons.guis
+package gecko10000.geckobeacons.guis
 
 import com.google.common.collect.HashMultimap
-import gecko10000.betterbeacons.BeaconManager
-import gecko10000.betterbeacons.BetterBeacons
-import gecko10000.betterbeacons.config.BeaconEffect
-import gecko10000.betterbeacons.di.MyKoinComponent
-import gecko10000.betterbeacons.model.CustomBeacon
+import gecko10000.geckobeacons.BeaconManager
+import gecko10000.geckobeacons.GeckoBeacons
+import gecko10000.geckobeacons.config.BeaconEffect
+import gecko10000.geckobeacons.di.MyKoinComponent
+import gecko10000.geckobeacons.model.CustomBeacon
 import gecko10000.geckolib.GUI
 import gecko10000.geckolib.extensions.MM
 import gecko10000.geckolib.extensions.parseMM
@@ -35,7 +35,7 @@ class BeaconGUI(
         const val SIZE = 54
     }
 
-    private val plugin: BetterBeacons by inject()
+    private val plugin: GeckoBeacons by inject()
     private val beaconManager: BeaconManager by inject()
     private var pyramidLayers by Delegates.notNull<Int>()
     private var maxEffects by Delegates.notNull<Int>()

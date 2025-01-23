@@ -1,4 +1,4 @@
-package gecko10000.betterbeacons.model
+package gecko10000.geckobeacons.model
 
 import org.bukkit.block.Block
 

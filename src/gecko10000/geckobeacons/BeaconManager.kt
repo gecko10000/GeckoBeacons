@@ -1,10 +1,10 @@
-package gecko10000.betterbeacons
+package gecko10000.geckobeacons
 
-import gecko10000.betterbeacons.config.BeaconEffect
-import gecko10000.betterbeacons.di.MyKoinComponent
-import gecko10000.betterbeacons.guis.BeaconGUI
-import gecko10000.betterbeacons.model.BeaconInfo
-import gecko10000.betterbeacons.model.CustomBeacon
+import gecko10000.geckobeacons.config.BeaconEffect
+import gecko10000.geckobeacons.di.MyKoinComponent
+import gecko10000.geckobeacons.guis.BeaconGUI
+import gecko10000.geckobeacons.model.BeaconInfo
+import gecko10000.geckobeacons.model.CustomBeacon
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.bukkit.Bukkit
@@ -31,9 +31,9 @@ import redempt.redlib.misc.Task
 
 class BeaconManager : MyKoinComponent {
 
-    private val plugin: BetterBeacons by inject()
+    private val plugin: GeckoBeacons by inject()
     private val json: Json by inject()
-    private val beaconKey = NamespacedKey(plugin, "bb")
+    private val beaconKey = NamespacedKey(plugin, "gb")
 
     private val loadedBeacons: MutableMap<Block, CustomBeacon> = mutableMapOf()
 

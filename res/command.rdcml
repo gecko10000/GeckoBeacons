@@ -1,7 +1,7 @@
-bb,bbeacons {
+geckobeacons {
     reload {
         help Reload the configs
         hook reload
-        permission betterbeacons.reload
+        permission geckobeacons.reload
     }
 }
